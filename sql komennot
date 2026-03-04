@@ -1,0 +1,13 @@
+CREATE DATABASE simulaatio;
+
+CREATE TABLE Customer (
+   customer_id int AUTO_INCREMENT NOT NULL,
+   ticket_type VARCHAR(500) NOT NULL,
+   quantity_of_clothes_etc int NOT NULL,
+   cloakroom VARCHAR(500) NOT NULL,
+   merch VARCHAR(500) NOT NULL,
+   PRIMARY KEY(customer_id)
+);
+
+CREATE USER 'konsertti'@'localhost' IDENTIFIED BY 'simulaatio';
+GRANT SELECT, INSERT, UPDATE, DELETE ON simulaatio.* TO 'konsertti'@'localhost';
