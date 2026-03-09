@@ -2,7 +2,7 @@ CREATE DATABASE simulaatio;
 
 CREATE TABLE Customer (
    customer_id INT AUTO_INCREMENT NOT NULL,
-   arrival_time TIME NOT NULL,
+   arrival_time DATETIME NOT NULL,
    ticket_type ENUM('VIP','GA') NOT NULL,
    quantity_of_clothes_etc INT NOT NULL,
    security_time INT NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE Customer (
    cloakroom_time INT NULL,
    merch BOOLEAN NOT NULL,
    merch_time INT NULL,
-   enter_concert_hall_time TIME NOT NULL,
+   enter_concert_hall_time DATETIME NOT NULL,
    PRIMARY KEY(customer_id)
 );
 
