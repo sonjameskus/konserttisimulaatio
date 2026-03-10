@@ -1,14 +1,21 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer {
     private boolean lippu; //VIP tai GA
     private int tavaraMäärä; //1-4, enemmän tavaraa kestää pitempään
     private boolean ostaako;
+    private boolean ostiko;
+    private List<Integer> kestot;
+    private double saapumisaika;
 
     public Customer(boolean lippu, int tavaraMäärä, boolean ostaako) {
         this.lippu = lippu;
         this.tavaraMäärä = tavaraMäärä;
         this.ostaako = ostaako;
+        kestot = new ArrayList<>();
     }
 
     public void setLippu(boolean lippu) {
@@ -33,5 +40,20 @@ public class Customer {
 
     public int getTavaraMäärä() {
         return tavaraMäärä;
+    }
+
+    public void setOstiko(boolean ostiko) {
+        this.ostiko = ostiko;
+    }
+
+    public boolean isOstiko() {
+        return ostiko;
+    }
+
+    public void addKesto(int kesto) {
+        kestot.add(kesto);
+    }
+    public int getKesto(int index) {
+        return kestot.get(index);
     }
 }
