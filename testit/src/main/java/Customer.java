@@ -5,14 +5,17 @@ public class Customer {
     private int securityTime;
     private int cloakroomTime;
     private int merchTime;
+    private static int counter = 1;
+    private int id;
 
     public Customer(boolean lippu) {
         this.lippu = lippu;
         this.tavaraMäärä = 1 + Controller.random.nextInt(3);
         this.securityTime = 10 + Controller.random.nextInt(2) * 10;
         this.cloakroomTime = 10 + Controller.random.nextInt(3) * 10;
-        this.merchTime = 10 + Controller.random.nextInt(5) * 10;
+        this.merchTime = 20 + Controller.random.nextInt(5) * 10;
         this.ostaako = Controller.random.nextBoolean();
+        this.id = counter++;
 
     }
 
@@ -38,7 +41,6 @@ public class Customer {
 
         return tavaraMäärä;
     }
-
 
 
     public int getSecurityTime() {
@@ -77,5 +79,9 @@ public class Customer {
             return false;
         }
 
+    }
+
+    public int getId() {
+        return id;
     }
 }

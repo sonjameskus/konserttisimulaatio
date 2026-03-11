@@ -1,8 +1,4 @@
 public enum EventType {
-    ARRIVAL_VENUE, //Asiakas saapuu paikalle
-    ARRIVAL_VIP_SECURITY, //VIP-asiakas siirtyy VIP-jonoon
-    ARRIVAL_GA_SECURITY, //GA-asiakas siirtyy GA-jonoon
-
     FINISH_VIP_SECURITY, //VIP-asiakas pääsee VIP-turvatarkastuksesta pois
     FINISH_GA_SECURITY, //GA-asiakas pääsee GA-turvatarkastuksesta pois
     FINISH_VIP_CLOAKROOM, //VIP-asiakas poistuu narikasta
