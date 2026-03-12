@@ -1,59 +1,132 @@
-package Model;
-
-import java.util.ArrayList;
-import java.util.List;
+package simulation;
 
 public class Customer {
     private boolean lippu; //VIP tai GA
     private int tavaraMäärä; //1-4, enemmän tavaraa kestää pitempään
     private boolean ostaako;
-    private boolean ostiko;
-    private List<Integer> kestot;
-    private double saapumisaika;
+    private int securityTime;
+    private int cloakroomTime;
+    private int merchTime;
+    private static int counter = 1;
+    private int id;
+    private static int pääsiSaliin = 0;
+    private double x, y;
+    private double targetX, targetY;
 
-    public Customer(boolean lippu, int tavaraMäärä, boolean ostaako) {
+    public Customer(boolean lippu) {
         this.lippu = lippu;
-        this.tavaraMäärä = tavaraMäärä;
-        this.ostaako = ostaako;
-        kestot = new ArrayList<>();
-    }
+        this.tavaraMäärä = 1 + Controller.random.nextInt(3);
+        this.securityTime = 10 + Controller.random.nextInt(2) * 10;
+        this.cloakroomTime = 10 + Controller.random.nextInt(3) * 10;
+        this.merchTime = 20 + Controller.random.nextInt(5) * 10;
+        this.ostaako = Controller.random.nextBoolean();
+        this.id = counter++;
+        this.x = 50;
+        this.y = 360;
 
-    public void setLippu(boolean lippu) {
-        this.lippu = lippu;
     }
 
     public boolean isLippu() {
         return lippu;
+
     }
 
-    public void setOstaako(boolean ostaako) {
-        this.ostaako = ostaako;
+    public String getLippu() {
+        if (isLippu()) {
+            return "VIP";
+        } else {
+            return "GA";
+        }
     }
 
     public boolean isOstaako() {
+
         return ostaako;
     }
 
-    public void setTavaraMäärä(int tavaraMäärä) {
-        this.tavaraMäärä = tavaraMäärä;
-    }
 
     public int getTavaraMäärä() {
+
         return tavaraMäärä;
     }
 
-    public void setOstiko(boolean ostiko) {
-        this.ostiko = ostiko;
+
+    public int getSecurityTime() {
+
+        return securityTime;
     }
 
-    public boolean isOstiko() {
-        return ostiko;
+    public int getCloakroomTime() {
+        if (isKäyNarikassa()) {
+            return cloakroomTime;
+        } else {
+            return 0;
+        }
     }
 
-    public void addKesto(int kesto) {
-        kestot.add(kesto);
+    public int getMerchTime() {
+        if (isOstaako()) {
+            return merchTime;
+        } else {
+            return 0;
+        }
     }
-    public int getKesto(int index) {
-        return kestot.get(index);
+
+    public boolean isKäyNarikassa() {
+        if (tavaraMäärä > 2) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
+
+    public boolean isVIP() {
+        if (isLippu()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+
+        public static void meneSaliin () {
+            pääsiSaliin++;
+        }
+
+        public static int getPääsiSaliin () {
+            return pääsiSaliin;
+        }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+
+    public void setPosition(double x, double y) {
+        this.x = x;
+        this.y = y;
+        this.targetX = x;
+        this.targetY = y;
+    }
+
+    public void moveTo(double targetX, double targetY) {
+        this.targetX = targetX;
+        this.targetY = targetY;
+    }
+
+    public void moveStep() {
+        x += (targetX - x) * 0.05;
+        y += (targetY - y) * 0.05;
+    }
+
 }
+

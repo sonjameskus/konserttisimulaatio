@@ -1,40 +1,40 @@
-package Model;
+package simulation;
 
-import java.util.LinkedList;
+import javafx.application.Platform;
+import view.SimGUI;
 
-public class Arrival {
-    private Customer customer;
-    private ServicePoint entrance;
+import java.util.Random;
 
-    public Arrival(Customer customer, ServicePoint servicePoint) {
-        this.customer = customer;
-        this.entrance = servicePoint;
-    }
+public class Arrival extends Thread {
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+    private Random random = new Random();
 
-    public Customer getCustomer() {
-        return customer;
-    }
+    public Arrival() {}
 
-    public void setServicePoint(ServicePoint servicePoint) {
-        this.entrance = servicePoint;
-    }
+    public static Event moveQueue(boolean isVIP) {
 
-    public ServicePoint getServicePoint() {
-        return entrance;
-    }
+        Customer customer = new Customer(isVIP);
 
-    public void insertCustomerToQueue(boolean vip) {
-        //TODO: prosessointi aika tähän
-        if (vip) {
-            Customer vipCustomer = customer;
-            vipCustomer.isLippu();
+        Platform.runLater(() -> {
+            SimGUI.updateCustomer(customer);
+        });
+
+        Event event;
+
+        if (isVIP) {
+            event = new Event(
+                    Clock.getInstance().getCurrentTime(),
+                    EventType.START_VIP_SECURITY,
+                    customer
+            );
         } else {
-            Customer gaCustomer = customer;;
+            event = new Event(
+                    Clock.getInstance().getCurrentTime(),
+                    EventType.START_GA_SECURITY,
+                    customer
+            );
         }
-        //TODO: syötetään asiakas simulaatioon
+
+        return event;
     }
 }

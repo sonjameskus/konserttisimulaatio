@@ -1,23 +1,24 @@
-package Model;
+package simulation;
 
 public class Clock {
-    private static Clock instance;
-    private int currentTime;
+
+    private static Clock instance = new Clock();
+
+    private double currentTime;
 
     private Clock() {
         currentTime = 0;
     }
 
     public static Clock getInstance() {
-        if (instance == null) {
-            instance = new Clock();
-        }
         return instance;
     }
 
-    public void tick(int time) {
-        for (int i = 0; i < time; i++) {
-            currentTime++;
-        }
+    public double getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setTime(double time) {
+        currentTime = time;
     }
 }

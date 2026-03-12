@@ -1,43 +1,28 @@
-package Model;
+package simulation;
 
 public class ServicePoint {
-    private int palvelunKesto;
     private int työntekijäMäärä;
-    private String ppID;
+    private int työntekijäMääräVarattu;
 
-    public ServicePoint(int palvelunKesto, int työntekijäMäärä, String ppID) {
-        this.palvelunKesto = palvelunKesto;
+
+
+    public ServicePoint(int työntekijäMäärä) {
         this.työntekijäMäärä = työntekijäMäärä;
-        this.ppID = ppID;
+        this.työntekijäMääräVarattu = 0;
     }
 
-    public void setPalvelunKesto(int palvelunKesto) {
-        this.palvelunKesto = palvelunKesto;
+
+
+    public boolean isAvailable() {
+        return työntekijäMäärä > työntekijäMääräVarattu;
     }
 
-    public int getPalvelunKesto() {
-        return palvelunKesto;
+
+    public void aloitaPalvelu() {
+        työntekijäMääräVarattu++;
     }
 
-    public void setTyöntekijäMäärä(int työntekijäMäärä) {
-        this.työntekijäMäärä = työntekijäMäärä;
-    }
-
-    public int getTyöntekijäMäärä() {
-        return työntekijäMäärä;
-    }
-
-    public void setPpID(String ppID) {
-        this.ppID = ppID;
-    }
-
-    public String getPpID() {
-        return ppID;
-    }
-
-    public Customer processCustomer() {
-        //TODO: prosessointi aika tähän
-        //TODO: ota asiakas jonosta (LinkedList queue) ja prosessoi se
-        return null; //TODO: palautetaan prosessoitu asiakas, jotta se voidaan syöttää simulaatiossa seuraavaan pisteeseen.
+    public void lopetaPalvelu() {
+        työntekijäMääräVarattu--;
     }
 }
