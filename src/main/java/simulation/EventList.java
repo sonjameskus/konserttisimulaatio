@@ -7,6 +7,9 @@ import java.util.PriorityQueue;
  */
 public class EventList {
 
+    /**
+     * A PriorityQueue that holds Event objects.
+     */
     private PriorityQueue<Event> events;
 
     /**
