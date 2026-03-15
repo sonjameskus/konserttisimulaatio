@@ -1,5 +1,8 @@
 package simulation;
 
+/**
+ * Event class represents an event in the simulation, containing information about the time of the event, the type of event, and the customer involved.
+ */
 public class Event implements Comparable<Event> {
 
     private double time;
@@ -7,6 +10,7 @@ public class Event implements Comparable<Event> {
     private Customer customer;
 
     /**
+     * Creates an Event-instance.
      * @param time A double value that set's the time-value.
      * @param type EventType type-value.
      * @param customer Customer customer-instance.
@@ -18,6 +22,7 @@ public class Event implements Comparable<Event> {
     }
 
     /**
+     * Gets a Customer-instance and returns it.
      * @return Returns the Customer-instance.
      */
     public Customer getCustomer() {
@@ -25,6 +30,7 @@ public class Event implements Comparable<Event> {
     }
 
     /**
+     * Gets a double value and returns it.
      * @return Returns the time-value.
      */
     public double getTime() {
@@ -32,6 +38,7 @@ public class Event implements Comparable<Event> {
     }
 
     /**
+     * Gets an EventType value and returns it.
      * @return Returns the type-value.
      */
     public EventType getType() {
