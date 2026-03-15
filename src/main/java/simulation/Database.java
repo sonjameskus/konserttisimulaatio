@@ -5,6 +5,9 @@ import java.sql.*;
 public class Database {
     private static Connection conn;
 
+    /**
+     * Connects to the database via hardcoded parameters.
+     */
     public static void connect() {
         try {
             conn = DriverManager.getConnection(
@@ -13,11 +16,15 @@ public class Database {
                     "simulaatio"
             );
         } catch (SQLException e) {
-            System.out.println("Yhdistaminen ei onnistu.");
+            System.out.println("Yhdistäminen ei onnistu.");
             e.printStackTrace();
         }
     }
 
+    /**
+     * Saves a customer to the database.
+     * @param c the customer to be saved
+     */
     public static void saveCustomer(Customer c) {
         if (conn == null) {
             System.out.println("Tietokantayhteys on null!");
@@ -28,9 +35,9 @@ public class Database {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, c.getLippu());
-            stmt.setInt(2, c.getTavaraMaara());
+            stmt.setInt(2, c.getTavaraMäärä());
             stmt.setInt(3, c.getSecurityTime());
-            stmt.setBoolean(4, c.isKayNarikassa());
+            stmt.setBoolean(4, c.isKäyNarikassa());
             stmt.setInt(5, c.getCloakroomTime());
             stmt.setBoolean(6, c.isOstaako());
             stmt.setInt(7, c.getMerchTime());
@@ -40,6 +47,9 @@ public class Database {
         }
     }
 
+    /**
+     * Retrieves and prints the average times for security, cloakroom, and merch services from the database.
+     */
     public static void getServiceAnalysis() {
 
         if (conn == null) {
@@ -63,7 +73,7 @@ public class Database {
                 System.out.println("Turvatarkastuksen keskiarvo: " + rs1.getDouble(1) + " sekuntia.");
 
             if (rs2.next())
-                System.out.println("Narikkakaynnin keskiarvo: " + rs2.getDouble(1) + " sekuntia.");
+                System.out.println("Narikkakäynnin keskiarvo: " + rs2.getDouble(1) + " sekuntia.");
 
             if (rs3.next())
                 System.out.println("Oheistuotteiden myynnin keskiarvo: " + rs3.getDouble(1) + " sekuntia.");
@@ -74,6 +84,10 @@ public class Database {
         }
     }
 
+    /**
+     *
+     * Deletes all customers from the database and resets the auto-increment counter.
+     */
     public static void deleteDatabase() {
 
         if (conn == null) {
