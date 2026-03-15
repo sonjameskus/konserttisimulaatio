@@ -22,6 +22,10 @@ public class MenuGUI extends Application {
 
     }
 
+    /**
+     * Runs the menuGUI viewer.
+     * @param args Main arguments.
+     */
     public static void main(String[] args) {
         launch(args);
     }

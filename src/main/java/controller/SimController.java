@@ -8,7 +8,8 @@ import view.SimGUI;
 public class SimController {
 
     /**
-     * @param args
+     * Runs the simGUI viewer launch method.
+     * @param args Main arguments.
      */
     public static void main(String[] args) {
         SimGUI.launch(SimGUI.class);

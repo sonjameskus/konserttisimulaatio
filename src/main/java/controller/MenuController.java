@@ -16,21 +16,80 @@ import javafx.application.Platform;
  */
 public class MenuController {
 
+    /**
+     * TextField that takes the value for the amount of GA-Customers.
+     */
     @FXML private TextField gaCustomerField;
+    /**
+     * TextField that takes the value for the amount of VIP-Customers.
+     */
     @FXML private TextField vipCustomerField;
+    /**
+     * TextField that takes the value for the amount of workers in GA-Security.
+     */
     @FXML private TextField gaSecurityField;
+    /**
+     * TextField that takes the value for the amount of workers in VIP-Security.
+     */
     @FXML private TextField vipSecurityField;
+    /**
+     * TextField that takes the value for the amount of workers in GA-Cloakroom.
+     */
     @FXML private TextField gaCloakroomField;
+    /**
+     * TextField that takes the value for the amount of workers in VIP-Cloakroom.
+     */
     @FXML private TextField vipCloakroomField;
+    /**
+     * TextField that takes the value for the amount of workers in Merch.
+     */
     @FXML private TextField merchField;
+    /**
+     * TextField that takes the value for the duration of the simulation.
+     */
     @FXML private TextField simDurationField;
+    /**
+     * Button that starts the simulation.
+     */
     @FXML private Button simStartButton;
 
-    int gaCustomers = 0;    int vipCustomers = 0;
-    int gaSecurity = 0;     int vipSecurity = 0;
-    int gaCloakroom = 0;    int vipCloakroom = 0;
-    int merch = 0;          int simDuration = 0;
+    /**
+     * Variable that records the amount of GA-Customers.
+     */
+    int gaCustomers = 0;
+    /**
+     * Variable that records the amount of VIP-Customers.
+     */
+    int vipCustomers = 0;
+    /**
+     * Variable that records the amount of workers in GA-Security.
+     */
+    int gaSecurity = 0;
+    /**
+     * Variable that records the amount of workers in VIP-Security.
+     */
+     int vipSecurity = 0;
+    /**
+     * Variable that records the amount of workers in GA-Cloakroom.
+     */
+    int gaCloakroom = 0;
+    /**
+     * Variable that records the amount of workers in VIP-Cloakroom.
+     */
+    int vipCloakroom = 0;
+    /**
+     * Variable that records the amount of workers in Merch.
+     */
+    int merch = 0;
+    /**
+     * Variable that records the duration of the simulation.
+     */
+    int simDuration = 0;
 
+    /**
+     * Submits the values given in the MenuGUI to the simulation.
+     * @param actionEvent ActionEvent for Submit-button click.
+     */
     @FXML
     public void submit(ActionEvent actionEvent) {
 
@@ -75,24 +134,24 @@ public class MenuController {
                     );
 
 
-                    if (controller.vipAsiakasmaara < controller.vipKavijamaara) {
+                    if (controller.vipAsiakasmäärä < controller.vipKävijämäärä) {
                         controller.eventList.add(controller.entry.moveQueue(true));
-                        controller.vipAsiakasmaara++;
+                        controller.vipAsiakasmäärä++;
                     }
-                    if (controller.gaAsiakasmaara < controller.gaKavijamaara) {
+                    if (controller.gaAsiakasmäärä < controller.gaKävijämäärä) {
                         controller.eventList.add(controller.entry.moveQueue(false));
-                        controller.gaAsiakasmaara++;
+                        controller.gaAsiakasmäärä++;
                     }
 
                     controller.run();
                     System.out.println("Simulaatio on paattynyt.");
 
-                    int total = controller.gaKavijamaara + controller.vipKavijamaara;
-                    if (Customer.getPaasiSaliin() == total) {
+                    int total = controller.gaKävijämäärä + controller.vipKävijämäärä;
+                    if (Customer.getPääsiSaliin() == total) {
                         System.out.println("Kaikki asiakkaat ehtivat konserttisaliin ajoissa.");
                     } else {
                         System.out.println("Kaikki asiakkaat eivat ehtineet konserttisaliin ajoissa.");
-                        System.out.println("Saliin paasi " + Customer.getPaasiSaliin() + " / " + total);
+                        System.out.println("Saliin paasi " + Customer.getPääsiSaliin() + " / " + total);
                     }
 
                 } catch (Exception e) {
@@ -108,7 +167,7 @@ public class MenuController {
     }
 
     /**
-     * @param args
+     * @param args Main arguments.
      */
     public static void main(String[] args) {
         MenuGUI.launch(MenuGUI.class);

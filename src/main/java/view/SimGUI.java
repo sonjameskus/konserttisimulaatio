@@ -21,8 +21,17 @@ import java.util.List;
  * Handles the simulation GUI.
  */
 public class SimGUI extends Application {
+    /**
+     * Adds a GraphicsContext class to the code.
+     */
     private static GraphicsContext simGC;
+    /**
+     * The amount of people in the performance-room.
+     */
     private static int hallCount = 0;
+    /**
+     * Creates a new arraylist to hold Customers-instances.
+     */
     private static List<Customer> customers = new ArrayList<>();
 
     /**
@@ -82,10 +91,19 @@ public class SimGUI extends Application {
         timer.start();
 
     }
+
+    /**
+     * Updates the count for how many Customer-instances are in the performance-room.
+     * @param count Value that is set to the updated hallCount.
+     */
     public static void updateHallCount(int count) {
         hallCount = count;
     }
 
+    /**
+     * Adds customers to the simulation GUI.
+     * @param c Customer-instance.
+     */
     public static void updateCustomer(Customer c) {
         if (!customers.contains(c)) {
             customers.add(c);
@@ -95,7 +113,7 @@ public class SimGUI extends Application {
     }
 
     /**
-     * Draw's the elements on the canvas.
+     * Draw's the nonstatic elements on the canvas.
      */
     public static void draw() {
         if (simGC == null) return;
@@ -120,6 +138,10 @@ public class SimGUI extends Application {
         }
     }
 
+    /**
+     * Draws the static elements on the canvas.
+     * @param gc GraphicsContext class
+     */
     private static void drawStatic(GraphicsContext gc) {
         int offsetX = 400;
         int offsetY = 30;
@@ -155,6 +177,10 @@ public class SimGUI extends Application {
     }
 
 
+    /**
+     * Runs the SimGUI viewer.
+     * @param args Main arguments.
+     */
     public static void main(String[] args) {
         launch(args);
     }
