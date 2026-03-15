@@ -13,6 +13,9 @@ public class Event implements Comparable<Event> {
      * The type of event, represented as an EventType enum value. This indicates what kind of event is occurring (e.g., arrival, start of service, end of service, etc.).
      */
     private EventType type;
+    /**
+     * The customer involved in the event, represented as a Customer instance. This provides information about the customer associated with the event, such as whether they are a VIP or not.
+     */
     private Customer customer;
 
     /**
