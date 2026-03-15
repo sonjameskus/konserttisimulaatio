@@ -66,7 +66,7 @@ public class Database {
                 System.out.println("Narikkakäynnin keskiarvo: " + rs2.getDouble(1) + " sekuntia.");
 
             if (rs3.next())
-                System.out.println("Oheistuotteiden oston keskiarvo: " + rs3.getDouble(1) + " sekuntia.");
+                System.out.println("Oheistuotteiden myynnin keskiarvo: " + rs3.getDouble(1) + " sekuntia.");
 
 
         } catch (SQLException e) {
