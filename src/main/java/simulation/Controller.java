@@ -9,24 +9,57 @@ import java.util.Random;
  * Controller class is the main class of the simulation, it handles the event queue and the arrival of customers. It also updates the database with the customer information when they enter the concert hall.
  */
 public class Controller {
+    /**
+     * Random instance used to generate random numbers for the service times of the customers. The random numbers are used to simulate the variability in service times that can occur in real life. The random instance is used in the handleEvent method when calculating the time for the next event after a service starts.
+     */
     static Random random = new Random();
     /**
      * Queues for the different service points and the arrival queue. The queues are implemented as LinkedLists, which allows for easy adding and removing of customers.
      */
     LinkedList<Customer> arrivalQueue;
+    /**
+     * Queues for the different service points and the arrival queue. The queues are implemented as LinkedLists, which allows for easy adding and removing of customers.
+     */
     LinkedList<Customer> vipSecurityQueue;
+    /**
+     * Queues for the different service points and the arrival queue. The queues are implemented as LinkedLists, which allows for easy adding and removing of customers.
+     */
     LinkedList<Customer> gaSecurityQueue;
+    /**
+     * Queues for the different service points and the arrival queue. The queues are implemented as LinkedLists, which allows for easy adding and removing of customers.
+     */
     LinkedList<Customer> vipCloakroomQueue;
+    /**
+     * Queues for the different service points and the arrival queue. The queues are implemented as LinkedLists, which allows for easy adding and removing of customers.
+     */
     LinkedList<Customer> gaCloakroomQueue;
+    /**
+     * Queues for the different service points and the arrival queue. The queues are implemented as LinkedLists, which allows for easy adding and removing of customers.
+     */
     LinkedList<Customer> merchQueue;
+    /**
+     * Arrival class is responsible for generating new customers and adding them to the event list. The entry variable is used to call the moveQueue method, which creates a new customer and adds an event for their arrival in the event list.
+     */
     public Arrival entry;
+    /**
+     * EventList is a priority queue that holds events in the simulation in the required order. The event list is used to manage the events that occur during the simulation, such as customer arrivals, service starts and ends, and entering the concert hall. The event list ensures that events are processed in the correct order based on their time values.
+     */
     public static EventList eventList;
     /**
      * Counters for the number of customers that have arrived during the simulation, used to stop the simulation when the desired number of customers has arrived.
      */
     public int gaAsiakasmäärä = 0;
+    /**
+     * Counters for the number of customers that have arrived during the simulation, used to stop the simulation when the desired number of customers has arrived.
+     */
     public int gaKävijämäärä;
+    /**
+     * Counters for the number of customers that have arrived during the simulation, used to stop the simulation when the desired number of customers has arrived.
+     */
     public int vipAsiakasmäärä = 0;
+    /**
+     * Counters for the number of customers that have arrived during the simulation, used to stop the simulation when the desired number of customers has arrived.
+     */
     public int vipKävijämäärä;
     /**
      * Simulation duration in seconds, used to stop the simulation when the time is over. The simulation will end when the current time exceeds the simulation duration, or when there are no more events in the event list.
@@ -36,9 +69,21 @@ public class Controller {
      * Service points for the different services in the simulation, each service point has a certain number of employees that can serve customers. The service points are used to check if there are available employees to serve the customers, and to reserve and release employees when a service starts and ends.
      */
     private ServicePoint vipSecurity;
+    /**
+     * Service points for the different services in the simulation, each service point has a certain number of employees that can serve customers. The service points are used to check if there are available employees to serve the customers, and to reserve and release employees when a service starts and ends.
+     */
     private ServicePoint gaSecurity;
+    /**
+     * Service points for the different services in the simulation, each service point has a certain number of employees that can serve customers. The service points are used to check if there are available employees to serve the customers, and to reserve and release employees when a service starts and ends.
+     */
     private ServicePoint vipNarikka;
+    /**
+     * Service points for the different services in the simulation, each service point has a certain number of employees that can serve customers. The service points are used to check if there are available employees to serve the customers, and to reserve and release employees when a service starts and ends.
+     */
     private ServicePoint gaNarikka;
+    /**
+     * Service points for the different services in the simulation, each service point has a certain number of employees that can serve customers. The service points are used to check if there are available employees to serve the customers, and to reserve and release employees when a service starts and ends.
+     */
     private ServicePoint merch;
     /**
      * Simulation speed in milliseconds, used to slow down the simulation so that it can be observed. The simulation speed can be adjusted to make the simulation run faster or slower.
