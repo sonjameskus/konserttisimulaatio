@@ -1,22 +1,28 @@
 package simulation;
 
+/**
+ * Creates Customer-instances that travel through the simulation.
+ */
 public class Customer {
     private boolean lippu; //VIP tai GA
-    private int tavaraMäärä; //1-4, enemmän tavaraa kestää pitempään
+    private int tavaraMaara; //1-4, enemman tavaraa kestaa pitempaan
     private boolean ostaako;
     private int securityTime;
     private int cloakroomTime;
     private int merchTime;
     private static int counter = 1;
     private int id;
-    private static int pääsiSaliin = 0;
+    private static int paasiSaliin = 0;
     private double x, y;
     private double targetX, targetY;
     private int queuePosition = 0;
 
+    /**
+     * @param lippu Boolean value that determines the VIP-status of a customer. (True = VIP, False = GA)
+     */
     public Customer(boolean lippu) {
         this.lippu = lippu;
-        this.tavaraMäärä = 1 + Controller.random.nextInt(3);
+        this.tavaraMaara = 1 + Controller.random.nextInt(3);
         this.securityTime = 5 + Controller.random.nextInt(3) * 10;
         this.cloakroomTime = 10 + Controller.random.nextInt(3) * 10;
         this.merchTime = 20 + Controller.random.nextInt(5) * 10;
@@ -27,11 +33,17 @@ public class Customer {
 
     }
 
+    /**
+     * @return Returns a Customer-instance's lippu-value.
+     */
     public boolean isLippu() {
         return lippu;
 
     }
 
+    /**
+     * @return Returns whether a Customer-instance's ticket is VIP or GA.
+     */
     public String getLippu() {
         if (isLippu()) {
             return "VIP";
@@ -40,31 +52,46 @@ public class Customer {
         }
     }
 
+    /**
+     * @return Returns whether a Customer-instance will visit the merch store or not.
+     */
     public boolean isOstaako() {
 
         return ostaako;
     }
 
 
-    public int getTavaraMäärä() {
+    /**
+     * @return Returns the amount of items a Customer-instance has.
+     */
+    public int getTavaraMaara() {
 
-        return tavaraMäärä;
+        return tavaraMaara;
     }
 
 
+    /**
+     * @return Returns the amount of time a Customer-instance will take in the security check.
+     */
     public int getSecurityTime() {
 
         return securityTime;
     }
 
+    /**
+     * @return Returns the amount of time a Customer-instance will take in the cloakroom.
+     */
     public int getCloakroomTime() {
-        if (isKäyNarikassa()) {
+        if (isKayNarikassa()) {
             return cloakroomTime;
         } else {
             return 0;
         }
     }
 
+    /**
+     * @return Returns the amount of time a Customer-instance will take in the merch store.
+     */
     public int getMerchTime() {
         if (isOstaako()) {
             return merchTime;
@@ -73,8 +100,11 @@ public class Customer {
         }
     }
 
-    public boolean isKäyNarikassa() {
-        if (tavaraMäärä > 2) {
+    /**
+     * @return Returns whether a Customer-instance will visit the cloakroom or not.
+     */
+    public boolean isKayNarikassa() {
+        if (tavaraMaara > 2) {
             return true;
         } else {
             return false;
@@ -82,6 +112,9 @@ public class Customer {
 
     }
 
+    /**
+     * @return Return's whether a Customer-instance's lippu-value is that of a VIP-ticket or not.
+     */
     public boolean isVIP() {
         if (isLippu()) {
             return true;
@@ -90,28 +123,46 @@ public class Customer {
         }
     }
 
+    /**
+     * @return Returns a Customer-instance's id number.
+     */
     public int getId() {
         return id;
     }
 
 
+    /**
+     * Increases the amount of people in the performance-room by 1.
+     */
         public static void meneSaliin () {
-            pääsiSaliin++;
+            paasiSaliin++;
         }
 
-        public static int getPääsiSaliin () {
-            return pääsiSaliin;
+    /**
+     * @return Returns the amount of people currently in the performance-room.
+     */
+        public static int getPaasiSaliin () {
+            return paasiSaliin;
         }
 
+    /**
+     * @return Returns a Customer-instance's current x-position.
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * @return Returns a Customer-instance's current y-position
+     */
     public double getY() {
         return y;
     }
 
 
+    /**
+     * Sets a Customer-instance's x-position and y-position based on the x-value and y-value.
+     */
     public void setPosition() {
         this.x = x;
         this.y = y;
@@ -119,6 +170,9 @@ public class Customer {
         this.targetY = y;
     }
 
+    /**
+     * Sets a Customer-instance's y-value based on it's VIP-status.
+     */
     public void getPosition() {
         if (isVIP()) {
             x = 0;
@@ -129,19 +183,33 @@ public class Customer {
         }
     }
 
+    /**
+     * @param targetX A double value that is set as a Customer-instance's new targetX-value.
+     * @param targetY A double value that is set as a Customer-instance's new targetY-value.
+     */
     public void moveTo(double targetX, double targetY) {
         this.targetX = targetX;
         this.targetY = targetY;
     }
 
+    /**
+     * Increases a Customer-instance's x-value and y-value toward TargetX-value and TargetY-value.
+     */
     public void moveStep() {
         x += (targetX - x) * 0.05;
         y += (targetY - y) * 0.05;
     }
+
+    /**
+     * @param pos An integer value that is set as a Customer-instance's new queuePosition-value.
+     */
     public void setQueuePosition(int pos) {
         this.queuePosition = pos;
     }
 
+    /**
+     * @return Returns a Customer-instance's current queuePosition-value.
+     */
     public int getQueuePosition() {
         return queuePosition;
     }

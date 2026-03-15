@@ -13,7 +13,7 @@ public class Database {
                     "simulaatio"
             );
         } catch (SQLException e) {
-            System.out.println("Yhdistäminen ei onnistu.");
+            System.out.println("Yhdistaminen ei onnistu.");
             e.printStackTrace();
         }
     }
@@ -28,9 +28,9 @@ public class Database {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, c.getLippu());
-            stmt.setInt(2, c.getTavaraMäärä());
+            stmt.setInt(2, c.getTavaraMaara());
             stmt.setInt(3, c.getSecurityTime());
-            stmt.setBoolean(4, c.isKäyNarikassa());
+            stmt.setBoolean(4, c.isKayNarikassa());
             stmt.setInt(5, c.getCloakroomTime());
             stmt.setBoolean(6, c.isOstaako());
             stmt.setInt(7, c.getMerchTime());
@@ -63,7 +63,7 @@ public class Database {
                 System.out.println("Turvatarkastuksen keskiarvo: " + rs1.getDouble(1) + " sekuntia.");
 
             if (rs2.next())
-                System.out.println("Narikkakäynnin keskiarvo: " + rs2.getDouble(1) + " sekuntia.");
+                System.out.println("Narikkakaynnin keskiarvo: " + rs2.getDouble(1) + " sekuntia.");
 
             if (rs3.next())
                 System.out.println("Oheistuotteiden myynnin keskiarvo: " + rs3.getDouble(1) + " sekuntia.");

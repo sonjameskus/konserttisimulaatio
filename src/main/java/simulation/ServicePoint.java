@@ -1,28 +1,28 @@
 package simulation;
 
 public class ServicePoint {
-    private int työntekijäMäärä;
-    private int työntekijäMääräVarattu;
+    private int tyontekijaMaara;
+    private int tyontekijaMaaraVarattu;
 
 
 
-    public ServicePoint(int työntekijäMäärä) {
-        this.työntekijäMäärä = työntekijäMäärä;
-        this.työntekijäMääräVarattu = 0;
+    public ServicePoint(int tyontekijaMaara) {
+        this.tyontekijaMaara = tyontekijaMaara;
+        this.tyontekijaMaaraVarattu = 0;
     }
 
 
 
     public boolean isAvailable() {
-        return työntekijäMäärä > työntekijäMääräVarattu;
+        return tyontekijaMaara > tyontekijaMaaraVarattu;
     }
 
 
     public void aloitaPalvelu() {
-        työntekijäMääräVarattu++;
+        tyontekijaMaaraVarattu++;
     }
 
     public void lopetaPalvelu() {
-        työntekijäMääräVarattu--;
+        tyontekijaMaaraVarattu--;
     }
 }

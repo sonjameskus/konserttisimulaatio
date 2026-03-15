@@ -41,7 +41,7 @@ public class MenuController {
             merch = Integer.parseInt(merchField.getText());
             simDuration = Integer.parseInt(simDurationField.getText());
         } catch (NumberFormatException e) {
-            simStartButton.setText("Tekstikenttiin pitää antaa numeroita");
+            simStartButton.setText("Tekstikenttiin pitaa antaa numeroita");
             return;
         }
         if (!simStartButton.isDisable()) {
@@ -72,24 +72,24 @@ public class MenuController {
                     );
 
 
-                    if (controller.vipAsiakasmäärä < controller.vipKävijämäärä) {
+                    if (controller.vipAsiakasmaara < controller.vipKavijamaara) {
                         controller.eventList.add(controller.entry.moveQueue(true));
-                        controller.vipAsiakasmäärä++;
+                        controller.vipAsiakasmaara++;
                     }
-                    if (controller.gaAsiakasmäärä < controller.gaKävijämäärä) {
+                    if (controller.gaAsiakasmaara < controller.gaKavijamaara) {
                         controller.eventList.add(controller.entry.moveQueue(false));
-                        controller.gaAsiakasmäärä++;
+                        controller.gaAsiakasmaara++;
                     }
 
                     controller.run();
-                    System.out.println("Simulaatio on päättynyt.");
+                    System.out.println("Simulaatio on paattynyt.");
 
-                    int total = controller.gaKävijämäärä + controller.vipKävijämäärä;
-                    if (Customer.getPääsiSaliin() == total) {
-                        System.out.println("Kaikki asiakkaat ehtivät konserttisaliin ajoissa.");
+                    int total = controller.gaKavijamaara + controller.vipKavijamaara;
+                    if (Customer.getPaasiSaliin() == total) {
+                        System.out.println("Kaikki asiakkaat ehtivat konserttisaliin ajoissa.");
                     } else {
-                        System.out.println("Kaikki asiakkaat eivät ehtineet konserttisaliin ajoissa.");
-                        System.out.println("Saliin pääsi " + Customer.getPääsiSaliin() + " / " + total);
+                        System.out.println("Kaikki asiakkaat eivat ehtineet konserttisaliin ajoissa.");
+                        System.out.println("Saliin paasi " + Customer.getPaasiSaliin() + " / " + total);
                     }
 
                 } catch (Exception e) {
