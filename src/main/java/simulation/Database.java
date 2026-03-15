@@ -60,13 +60,13 @@ public class Database {
 
 
             if (rs1.next())
-                System.out.println("Turvatarkastus keskiarvo: " + rs1.getDouble(1) + " sekuntia.");
+                System.out.println("Turvatarkastuksen keskiarvo: " + rs1.getDouble(1) + " sekuntia.");
 
             if (rs2.next())
-                System.out.println("Narikka keskiarvo: " + rs2.getDouble(1) + " sekuntia.");
+                System.out.println("Narikkakäynnin keskiarvo: " + rs2.getDouble(1) + " sekuntia.");
 
             if (rs3.next())
-                System.out.println("Merch keskiarvo: " + rs3.getDouble(1) + " sekuntia.");
+                System.out.println("Oheistuotteiden oston keskiarvo: " + rs3.getDouble(1) + " sekuntia.");
 
 
         } catch (SQLException e) {
