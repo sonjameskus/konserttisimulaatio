@@ -42,7 +42,7 @@ public class Customer {
     private int queuePosition = 0;
 
     /**
-     * Creates a Customer-instance.
+     * Customer constructor.
      * @param lippu A boolean value that determines the VIP-status of a Customer-instance. (True = VIP, False = GA)
      */
     public Customer(boolean lippu) {

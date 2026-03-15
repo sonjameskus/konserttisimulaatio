@@ -48,15 +48,15 @@ public class Controller {
     /**
      * Simulation Engine, handles the event queue and arrival classes
      * @param simulaationKesto how long the simulation will run in seconds
-     * @param gaKavijamaara how many GA customers will arrive during the simulation
-     * @param vipKavijamaara how many VIP customers will arrive during the simulation
-     * @param vipSecurityTyöntekijaMaara how many security workers are at the VIP security check
-     * @param gaSecurityTyöntekijaMaara how many security workers are at the GA security check
-     * @param vipNarikkaTyöntekijaMaara how many cloakroom workers are at the VIP cloakroom
-     * @param gaNarikkaTyöntekijaMaara how many cloakroom workers are at the GA cloakroom
-     * @param merchTyöntekijaMaara how many workers are at the merch stand
+     * @param gaKävijämäärä how many GA customers will arrive during the simulation
+     * @param vipKävijämäärä how many VIP customers will arrive during the simulation
+     * @param vipSecurityTyontekijaMaara how many security workers are at the VIP security check
+     * @param gaSecurityTyontekijaMaara how many security workers are at the GA security check
+     * @param vipNarikkaTyontekijaMaara how many cloakroom workers are at the VIP cloakroom
+     * @param gaNarikkaTyontekijaMaara how many cloakroom workers are at the GA cloakroom
+     * @param merchTyontekijaMaara how many workers are at the merch stand
      */
-    public Controller(int simulaationKesto, int gaKavijamaara, int vipKavijamaara, int vipSecurityTyöntekijaMaara, int gaSecurityTyöntekijaMaara, int vipNarikkaTyöntekijaMaara, int gaNarikkaTyöntekijaMaara, int merchTyöntekijaMaara) {
+    public Controller(int simulaationKesto, int gaKävijämäärä, int vipKävijämäärä, int vipSecurityTyontekijaMaara, int gaSecurityTyontekijaMaara, int vipNarikkaTyontekijaMaara, int gaNarikkaTyontekijaMaara, int merchTyontekijaMaara) {
         arrivalQueue = new LinkedList<>();
         vipSecurityQueue = new LinkedList<>();
         gaSecurityQueue = new LinkedList<>();
@@ -66,13 +66,13 @@ public class Controller {
         eventList = new EventList();
         entry = new Arrival();
         this.simulaationKesto = simulaationKesto;
-        this.gaKavijamaara = gaKavijamaara;
-        this.vipKavijamaara = vipKavijamaara;
-        this.vipSecurity = new ServicePoint(vipSecurityTyöntekijaMaara);
-        this.gaSecurity = new ServicePoint(gaSecurityTyöntekijaMaara);
-        this.vipNarikka = new ServicePoint(vipNarikkaTyöntekijaMaara);
-        this.gaNarikka = new ServicePoint(gaNarikkaTyöntekijaMaara);
-        this.merch = new ServicePoint(merchTyöntekijaMaara);
+        this.gaKävijämäärä = gaKävijämäärä;
+        this.vipKävijämäärä = vipKävijämäärä;
+        this.vipSecurity = new ServicePoint(vipSecurityTyontekijaMaara);
+        this.gaSecurity = new ServicePoint(gaSecurityTyontekijaMaara);
+        this.vipNarikka = new ServicePoint(vipNarikkaTyontekijaMaara);
+        this.gaNarikka = new ServicePoint(gaNarikkaTyontekijaMaara);
+        this.merch = new ServicePoint(merchTyontekijaMaara);
     }
 
     /**
@@ -115,11 +115,11 @@ public class Controller {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_VIP_SECURITY, next));
                     updateQueuePositions(vipSecurityQueue, 180, 460);
                 }
-                if (customer.isVIP() && customer.isKayNarikassa()) {
+                if (customer.isVIP() && customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_VIP_CLOAKROOM, customer));
                 } else if (customer.isOstaako()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_MERCH, customer));
-                } else if (!customer.isOstaako() && !customer.isKayNarikassa()) {
+                } else if (!customer.isOstaako() && !customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_ENTER_CONCERT_HALL, customer));
                 }
             } else if (type == EventType.START_VIP_CLOAKROOM) {
@@ -177,11 +177,11 @@ public class Controller {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_GA_SECURITY, next));
                     updateQueuePositions(gaSecurityQueue, 180, 260);
                 }
-                if (!customer.isVIP() && customer.isKayNarikassa()) {
+                if (!customer.isVIP() && customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_GA_CLOAKROOM, customer));
                 } else if (customer.isOstaako()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_MERCH, customer));
-                } else if (!customer.isOstaako() && !customer.isKayNarikassa()) {
+                } else if (!customer.isOstaako() && !customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_ENTER_CONCERT_HALL, customer));
                 }
             } else if (type == EventType.START_GA_CLOAKROOM) {
@@ -252,9 +252,9 @@ public class Controller {
             } else if (type == EventType.FINISH_ENTER_CONCERT_HALL) {
                 System.out.println("Asiakas numero " + customer.getId() + " on siirtynyt konserttisaliin onnistuneesti.");
                 Customer.meneSaliin();
-                System.out.println("Salissa nyt: " + Customer.getPaasiSaliin());
+                System.out.println("Salissa nyt: " + Customer.getPääsiSaliin());
                 Platform.runLater(() -> {
-                    SimGUI.updateHallCount(Customer.getPaasiSaliin());
+                    SimGUI.updateHallCount(Customer.getPääsiSaliin());
                 });
                 Customer c = event.getCustomer();
                 Database.saveCustomer(c);
@@ -310,13 +310,13 @@ public class Controller {
         while (!eventList.isEmpty()) {
             if (Clock.getInstance().getCurrentTime() < simulaationKesto) {
                 //System.out.println(eventList.size());
-                if (vipAsiakasmaara < vipKavijamaara) {
+                if (vipAsiakasmäärä < vipKävijämäärä) {
                     eventList.add(entry.moveQueue(true));
-                    vipAsiakasmaara++;
+                    vipAsiakasmäärä++;
                 }
-                if (gaAsiakasmaara < gaKavijamaara) {
+                if (gaAsiakasmäärä < gaKävijämäärä) {
                     eventList.add(entry.moveQueue(false));
-                    gaAsiakasmaara++;
+                    gaAsiakasmäärä++;
                 }
                 Event event = eventList.remove();
                 if (event == null) {

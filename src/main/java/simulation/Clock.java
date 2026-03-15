@@ -5,6 +5,9 @@ package simulation;
  */
 public class Clock {
 
+    /**
+     * Creates a new Clock-instance
+     */
     private static Clock instance = new Clock();
 
     /**
@@ -12,6 +15,9 @@ public class Clock {
      */
     private double currentTime;
 
+    /**
+     * Clock constructor.
+     */
     private Clock() {
         currentTime = 0;
     }

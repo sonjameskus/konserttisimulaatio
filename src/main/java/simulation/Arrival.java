@@ -10,10 +10,13 @@ import java.util.Random;
  */
 public class Arrival extends Thread {
 
+    /**
+     * Creates a new pseudorandom number instance.
+     */
     private Random random = new Random();
 
     /**
-     * Creates an Arrival-instance.
+     * Arrival constructor.
      */
     public Arrival() {}
 
