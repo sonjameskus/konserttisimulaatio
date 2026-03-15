@@ -4,7 +4,14 @@ package simulation;
  * Service point entity with a defined amount of employees.
  */
 public class ServicePoint {
+    
+    /**
+     * The number of employees at the service point. This value is set when the ServicePoint instance is created and does not change during the simulation.
+     */
     private int työntekijäMäärä;
+    /**
+     * The number of employees currently reserved for service. This value changes during the simulation as customers are served and employees are reserved or released.
+     */
     private int työntekijäMääräVarattu;
 
 
