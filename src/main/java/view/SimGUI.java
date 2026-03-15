@@ -17,11 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Handles the simulation GUI.
+ */
 public class SimGUI extends Application {
     private static GraphicsContext simGC;
     private static int hallCount = 0;
     private static List<Customer> customers = new ArrayList<>();
 
+    /**
+     * @return Return's the list of Customer-instances.
+     */
     public static List<Customer> getCustomers() {
         return customers;
     }
@@ -88,6 +94,9 @@ public class SimGUI extends Application {
         }
     }
 
+    /**
+     * Draw's the elements on the canvas.
+     */
     public static void draw() {
         if (simGC == null) return;
         simGC.clearRect(0, 0, 1280, 720);

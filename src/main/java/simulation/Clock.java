@@ -7,6 +7,9 @@ public class Clock {
 
     private static Clock instance = new Clock();
 
+    /**
+     * Current time recorder by the Clock-instance.
+     */
     private double currentTime;
 
     private Clock() {

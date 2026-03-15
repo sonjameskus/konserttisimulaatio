@@ -18,7 +18,8 @@ public class Customer {
     private int queuePosition = 0;
 
     /**
-     * @param lippu Boolean value that determines the VIP-status of a customer. (True = VIP, False = GA)
+     * Creates a Customer-instance.
+     * @param lippu A boolean value that determines the VIP-status of a Customer-instance. (True = VIP, False = GA)
      */
     public Customer(boolean lippu) {
         this.lippu = lippu;

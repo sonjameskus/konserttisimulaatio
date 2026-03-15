@@ -11,6 +11,9 @@ import view.MenuGUI;
 import view.SimGUI;
 import javafx.application.Platform;
 
+/**
+ * Handles interfacing between the GUI and the model.
+ */
 public class MenuController {
 
     @FXML private TextField gaCustomerField;
@@ -104,6 +107,9 @@ public class MenuController {
         }
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         MenuGUI.launch(MenuGUI.class);
     }

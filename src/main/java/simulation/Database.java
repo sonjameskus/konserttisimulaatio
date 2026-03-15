@@ -35,9 +35,9 @@ public class Database {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, c.getLippu());
-            stmt.setInt(2, c.getTavaraMäärä());
+            stmt.setInt(2, c.getTavaraMaara());
             stmt.setInt(3, c.getSecurityTime());
-            stmt.setBoolean(4, c.isKäyNarikassa());
+            stmt.setBoolean(4, c.isKayNarikassa());
             stmt.setInt(5, c.getCloakroomTime());
             stmt.setBoolean(6, c.isOstaako());
             stmt.setInt(7, c.getMerchTime());
