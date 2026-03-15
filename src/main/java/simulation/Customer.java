@@ -4,17 +4,41 @@ package simulation;
  * Creates Customer-instances that travel through the simulation.
  */
 public class Customer {
+    /**
+     * Customer class has a lippu-value that determines whether the Customer-instance is a VIP or a GA. A lippu-value of true means that the Customer-instance is a VIP and a lippu-value of false means that the Customer-instance is a GA.
+     */
     private boolean lippu; //VIP tai GA
+    /**
+     * Customer class has a tavaraMaara-value that determines how many items a Customer-instance has. A tavaraMaara-value of 1-4 means that the Customer-instance has 1-4 items and a higher tavaraMaara-value means that the Customer-instance will take longer in the cloakroom.
+     */
     private int tavaraMaara; //1-4, enemman tavaraa kestaa pitempaan
+    /**
+     * Customer class has an ostaako-value that determines whether a Customer-instance will visit the merch store or not. An ostaako-value of true means that the Customer-instance will visit the merch store and an ostaako-value of false means that the Customer-instance will not visit the merch store.
+     */
     private boolean ostaako;
+    /**
+     * Customer class has a securityTime-value that stores the amount of time it took for it to go through the security check, a cloakroomTime-value that stores the amount of time it took for it to go through the cloakroom and a merchTime-value that stores the amount of time it took for it to go through the merch store.
+     */
     private int securityTime;
     private int cloakroomTime;
     private int merchTime;
+    /**
+     * Customer class has a static counter-value that is used to give each Customer-instance a unique id number. The counter-value starts at 1 and increases by 1 every time a new Customer-instance is created.
+     */
     private static int counter = 1;
     private int id;
+    /**
+     * Customer class has a static paasiSaliin-value that stores the amount of people that have entered the performance-room.
+     */
     private static int paasiSaliin = 0;
+    /**
+     * Customer class has an x-value and a y-value that determine the current position of a Customer-instance and a targetX-value and a targetY-value that determine the position a Customer-instance is moving toward.
+     */
     private double x, y;
     private double targetX, targetY;
+    /**
+     * Customer class has a queuePosition-value that determines a Customer-instance's position in the queue. A lower queuePosition-value means that the Customer-instance is closer to the front of the queue and a higher queuePosition-value means that the Customer-instance is further back in the queue.
+     */
     private int queuePosition = 0;
 
     /**
