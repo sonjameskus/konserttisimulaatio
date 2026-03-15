@@ -5,8 +5,13 @@ package simulation;
  */
 public class Event implements Comparable<Event> {
 
+    /**
+     * The time at which the event occurs, represented as a double value.
+     */
     private double time;
-    private EventType type;
+    /**
+     * The type of event, represented as an EventType enum value. This indicates what kind of event is occurring (e.g., arrival, start of service, end of service, etc.).
+     */
     private Customer customer;
 
     /**
