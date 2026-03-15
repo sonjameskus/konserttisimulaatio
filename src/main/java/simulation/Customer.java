@@ -20,12 +20,21 @@ public class Customer {
      * Customer class has a securityTime-value that stores the amount of time it took for it to go through the security check, a cloakroomTime-value that stores the amount of time it took for it to go through the cloakroom and a merchTime-value that stores the amount of time it took for it to go through the merch store.
      */
     private int securityTime;
+    /**
+     * Customer class has a securityTime-value that stores the amount of time it took for it to go through the security check, a cloakroomTime-value that stores the amount of time it took for it to go through the cloakroom and a merchTime-value that stores the amount of time it took for it to go through the merch store.
+     */
     private int cloakroomTime;
+    /**
+     * Customer class has a securityTime-value that stores the amount of time it took for it to go through the security check, a cloakroomTime-value that stores the amount of time it took for it to go through the cloakroom and a merchTime-value that stores the amount of time it took for it to go through the merch store.
+     */
     private int merchTime;
     /**
      * Customer class has a static counter-value that is used to give each Customer-instance a unique id number. The counter-value starts at 1 and increases by 1 every time a new Customer-instance is created.
      */
     private static int counter = 1;
+    /**
+     * Customer class has a static counter-value that is used to give each Customer-instance a unique id number. The counter-value starts at 1 and increases by 1 every time a new Customer-instance is created.
+     */
     private int id;
     /**
      * Customer class has a static paasiSaliin-value that stores the amount of people that have entered the performance-room.
@@ -35,6 +44,9 @@ public class Customer {
      * Customer class has an x-value and a y-value that determine the current position of a Customer-instance and a targetX-value and a targetY-value that determine the position a Customer-instance is moving toward.
      */
     private double x, y;
+    /**
+     * Customer class has an x-value and a y-value that determine the current position of a Customer-instance and a targetX-value and a targetY-value that determine the position a Customer-instance is moving toward.
+     */
     private double targetX, targetY;
     /**
      * Customer class has a queuePosition-value that determines a Customer-instance's position in the queue. A lower queuePosition-value means that the Customer-instance is closer to the front of the queue and a higher queuePosition-value means that the Customer-instance is further back in the queue.
