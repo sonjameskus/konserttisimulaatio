@@ -13,5 +13,5 @@ CREATE TABLE Customer (
 );
 
 CREATE USER 'konsertti'@'localhost' IDENTIFIED BY 'simulaatio';
-GRANT SELECT, INSERT, UPDATE, DELETE ON simulaatio.* TO 'konsertti'@'localhost';
+GRANT ALL PRIVILEGES ON simulaatio.* TO 'konsertti'@'localhost';
 
