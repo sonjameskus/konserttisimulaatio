@@ -5,8 +5,14 @@ import view.SimGUI;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * Controller class is the main class of the simulation, it handles the event queue and the arrival of customers. It also updates the database with the customer information when they enter the concert hall.
+ */
 public class Controller {
     static Random random = new Random();
+    /**
+     * Queues for the different service points and the arrival queue. The queues are implemented as LinkedLists, which allows for easy adding and removing of customers.
+     */
     LinkedList<Customer> arrivalQueue;
     LinkedList<Customer> vipSecurityQueue;
     LinkedList<Customer> gaSecurityQueue;
@@ -15,16 +21,28 @@ public class Controller {
     LinkedList<Customer> merchQueue;
     public Arrival entry;
     public static EventList eventList;
-    public int gaAsiakasmaara = 0;
-    public int gaKavijamaara;
-    public int vipAsiakasmaara = 0;
-    public int vipKavijamaara;
+    /**
+     * Counters for the number of customers that have arrived during the simulation, used to stop the simulation when the desired number of customers has arrived.
+     */
+    public int gaAsiakasmäärä = 0;
+    public int gaKävijämäärä;
+    public int vipAsiakasmäärä = 0;
+    public int vipKävijämäärä;
+    /**
+     * Simulation duration in seconds, used to stop the simulation when the time is over. The simulation will end when the current time exceeds the simulation duration, or when there are no more events in the event list.
+     */
     int simulaationKesto;
+    /**
+     * Service points for the different services in the simulation, each service point has a certain number of employees that can serve customers. The service points are used to check if there are available employees to serve the customers, and to reserve and release employees when a service starts and ends.
+     */
     private ServicePoint vipSecurity;
     private ServicePoint gaSecurity;
     private ServicePoint vipNarikka;
     private ServicePoint gaNarikka;
     private ServicePoint merch;
+    /**
+     * Simulation speed in milliseconds, used to slow down the simulation so that it can be observed. The simulation speed can be adjusted to make the simulation run faster or slower.
+     */
     public static int simulationSpeed = 30;
 
     /**
