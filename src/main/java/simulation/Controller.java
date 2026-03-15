@@ -15,10 +15,10 @@ public class Controller {
     LinkedList<Customer> merchQueue;
     public Arrival entry;
     public static EventList eventList;
-    public int gaAsiakasmaara = 0;
-    public int gaKavijamaara;
-    public int vipAsiakasmaara = 0;
-    public int vipKavijamaara;
+    public int gaAsiakasmäärä = 0;
+    public int gaKävijämäärä;
+    public int vipAsiakasmäärä = 0;
+    public int vipKävijämäärä;
     int simulaationKesto;
     private ServicePoint vipSecurity;
     private ServicePoint gaSecurity;
@@ -27,7 +27,18 @@ public class Controller {
     private ServicePoint merch;
     public static int simulationSpeed = 30;
 
-    public Controller(int simulaationKesto, int gaKavijamaara, int vipKavijamaara, int vipSecurityTyontekijaMaara, int gaSecurityTyontekijaMaara, int vipNarikkaTyontekijaMaara, int gaNarikkaTyontekijaMaara, int merchTyontekijaMaara) {
+    /**
+     * Simulation Engine, handles the event queue and arrival classes
+     * @param simulaationKesto how long the simulation will run in seconds
+     * @param gaKävijämäärä how many GA customers will arrive during the simulation
+     * @param vipKävijämäärä how many VIP customers will arrive during the simulation
+     * @param vipSecurityTyöntekijäMäärä how many security workers are at the VIP security check
+     * @param gaSecurityTyöntekijäMäärä how many security workers are at the GA security check
+     * @param vipNarikkaTyöntekijäMäärä how many cloakroom workers are at the VIP cloakroom
+     * @param gaNarikkaTyöntekijäMäärä how many cloakroom workers are at the GA cloakroom
+     * @param merchTyöntekijäMäärä how many workers are at the merch stand
+     */
+    public Controller(int simulaationKesto, int gaKävijämäärä, int vipKävijämäärä, int vipSecurityTyöntekijäMäärä, int gaSecurityTyöntekijäMäärä, int vipNarikkaTyöntekijäMäärä, int gaNarikkaTyöntekijäMäärä, int merchTyöntekijäMäärä) {
         arrivalQueue = new LinkedList<>();
         vipSecurityQueue = new LinkedList<>();
         gaSecurityQueue = new LinkedList<>();
@@ -37,16 +48,20 @@ public class Controller {
         eventList = new EventList();
         entry = new Arrival();
         this.simulaationKesto = simulaationKesto;
-        this.gaKavijamaara = gaKavijamaara;
-        this.vipKavijamaara = vipKavijamaara;
-        this.vipSecurity = new ServicePoint(vipSecurityTyontekijaMaara);
-        this.gaSecurity = new ServicePoint(gaSecurityTyontekijaMaara);
-        this.vipNarikka = new ServicePoint(vipNarikkaTyontekijaMaara);
-        this.gaNarikka = new ServicePoint(gaNarikkaTyontekijaMaara);
-        this.merch = new ServicePoint(merchTyontekijaMaara);
+        this.gaKävijämäärä = gaKävijämäärä;
+        this.vipKävijämäärä = vipKävijämäärä;
+        this.vipSecurity = new ServicePoint(vipSecurityTyöntekijäMäärä);
+        this.gaSecurity = new ServicePoint(gaSecurityTyöntekijäMäärä);
+        this.vipNarikka = new ServicePoint(vipNarikkaTyöntekijäMäärä);
+        this.gaNarikka = new ServicePoint(gaNarikkaTyöntekijäMäärä);
+        this.merch = new ServicePoint(merchTyöntekijäMäärä);
     }
 
-    public void handleEvent(Event event) throws Exception {
+    /**
+     * Handles the event, and changes the type according to the need of the program. Also updates the database.
+     * @param event the event to be handled
+     */
+    public void handleEvent(Event event){
         EventType type = event.getType();
         Customer customer = event.getCustomer();
         customer.getPosition();
@@ -75,18 +90,18 @@ public class Controller {
 
             } else if (type == EventType.FINISH_VIP_SECURITY) {
                 vipSecurity.lopetaPalvelu();
-                System.out.println("Asiakas numero " + customer.getId() + ". VIP Security paattyy. Kesto: " + customer.getSecurityTime() + "sekuntia.");
+                System.out.println("Asiakas numero " + customer.getId() + ". VIP Security päättyy. Kesto: " + customer.getSecurityTime() + "sekuntia.");
 
                 if (!vipSecurityQueue.isEmpty()) {
                     Customer next = vipSecurityQueue.remove();
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_VIP_SECURITY, next));
                     updateQueuePositions(vipSecurityQueue, 180, 460);
                 }
-                if (customer.isVIP() && customer.isKayNarikassa()) {
+                if (customer.isVIP() && customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_VIP_CLOAKROOM, customer));
                 } else if (customer.isOstaako()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_MERCH, customer));
-                } else if (!customer.isOstaako() && !customer.isKayNarikassa()) {
+                } else if (!customer.isOstaako() && !customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_ENTER_CONCERT_HALL, customer));
                 }
             } else if (type == EventType.START_VIP_CLOAKROOM) {
@@ -108,7 +123,7 @@ public class Controller {
 
             } else if (type == EventType.FINISH_VIP_CLOAKROOM) {
                 vipNarikka.lopetaPalvelu();
-                System.out.println("Asiakas numero " + customer.getId() + ". VIP narikka paattyy. Kesto: " + customer.getCloakroomTime() + "sekuntia.");
+                System.out.println("Asiakas numero " + customer.getId() + ". VIP narikka päättyy. Kesto: " + customer.getCloakroomTime() + "sekuntia.");
                 if (!vipCloakroomQueue.isEmpty()) {
                     Customer next = vipCloakroomQueue.remove();
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_VIP_CLOAKROOM, next));
@@ -138,17 +153,17 @@ public class Controller {
                 }
             } else if (type == EventType.FINISH_GA_SECURITY) {
                 gaSecurity.lopetaPalvelu();
-                System.out.println("Asiakas numero " + customer.getId() + ". GA Security paattyy. Kesto: " + customer.getSecurityTime() + "sekuntia.");
+                System.out.println("Asiakas numero " + customer.getId() + ". GA Security päättyy. Kesto: " + customer.getSecurityTime() + "sekuntia.");
                 if (!gaSecurityQueue.isEmpty()) {
                     Customer next = gaSecurityQueue.remove();
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_GA_SECURITY, next));
                     updateQueuePositions(gaSecurityQueue, 180, 260);
                 }
-                if (!customer.isVIP() && customer.isKayNarikassa()) {
+                if (!customer.isVIP() && customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_GA_CLOAKROOM, customer));
                 } else if (customer.isOstaako()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_MERCH, customer));
-                } else if (!customer.isOstaako() && !customer.isKayNarikassa()) {
+                } else if (!customer.isOstaako() && !customer.isKäyNarikassa()) {
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_ENTER_CONCERT_HALL, customer));
                 }
             } else if (type == EventType.START_GA_CLOAKROOM) {
@@ -170,7 +185,7 @@ public class Controller {
                 }
             } else if (type == EventType.FINISH_GA_CLOAKROOM) {
                 gaNarikka.lopetaPalvelu();
-                System.out.println("Asiakas numero " + customer.getId() + ". GA narikka paattyy. Kesto: " + customer.getCloakroomTime() + "sekuntia.");
+                System.out.println("Asiakas numero " + customer.getId() + ". GA narikka päättyy. Kesto: " + customer.getCloakroomTime() + "sekuntia.");
                 if (!gaCloakroomQueue.isEmpty()) {
                     Customer next = gaCloakroomQueue.remove();
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_GA_CLOAKROOM, next));
@@ -199,7 +214,7 @@ public class Controller {
                 }
             } else if (type == EventType.FINISH_MERCH) {
                 merch.lopetaPalvelu();
-                System.out.println("Asiakas numero " + customer.getId() + ". Oheistuotemyyntipiste paattyy. Kesto: " + customer.getMerchTime() + "sekuntia.");
+                System.out.println("Asiakas numero " + customer.getId() + ". Oheistuotemyyntipiste päättyy. Kesto: " + customer.getMerchTime() + "sekuntia.");
                 if (!merchQueue.isEmpty()) {
                     Customer next = merchQueue.remove();
                     eventList.add(new Event(Clock.getInstance().getCurrentTime(), EventType.START_MERCH, next));
@@ -219,9 +234,9 @@ public class Controller {
             } else if (type == EventType.FINISH_ENTER_CONCERT_HALL) {
                 System.out.println("Asiakas numero " + customer.getId() + " on siirtynyt konserttisaliin onnistuneesti.");
                 Customer.meneSaliin();
-                System.out.println("Salissa nyt: " + Customer.getPaasiSaliin());
+                System.out.println("Salissa nyt: " + Customer.getPääsiSaliin());
                 Platform.runLater(() -> {
-                    SimGUI.updateHallCount(Customer.getPaasiSaliin());
+                    SimGUI.updateHallCount(Customer.getPääsiSaliin());
                 });
                 Customer c = event.getCustomer();
                 Database.saveCustomer(c);
@@ -233,10 +248,22 @@ public class Controller {
 
     }
 
+    /**
+     * Calculates the x coordinate for the customer in the queue, based on the service point and the queue position. Each customer is 20 pixels apart.
+     * @param serviceX the x coordinate of the service point
+     * @param c the customer for which the x coordinate is being calculated
+     * @return the x coordinate for the customer in the queue
+     */
     private double queueX(double serviceX, Customer c) {
         return serviceX - (c.getQueuePosition() * 20);
     }
 
+    /**
+     * Updates the positions of the customers in the queue, when a customer is removed from the queue. Each customer is 20 pixels apart.
+     * @param queue the queue in which the customer was removed
+     * @param serviceX the x coordinate of the service point
+     * @param y the y coordinate of the queue
+     */
     private void updateQueuePositions(LinkedList<Customer> queue, double serviceX, double y) {
 
         int position = 0;
@@ -256,19 +283,22 @@ public class Controller {
         }
     }
 
-    public void run() throws Exception {
+    /**
+     * Runs the simulation and ends it when the time is over or there are no more events in the list.
+     */
+    public void run(){
         Database.connect();
         Database.deleteDatabase();
         while (!eventList.isEmpty()) {
             if (Clock.getInstance().getCurrentTime() < simulaationKesto) {
                 //System.out.println(eventList.size());
-                if (vipAsiakasmaara < vipKavijamaara) {
+                if (vipAsiakasmäärä < vipKävijämäärä) {
                     eventList.add(entry.moveQueue(true));
-                    vipAsiakasmaara++;
+                    vipAsiakasmäärä++;
                 }
-                if (gaAsiakasmaara < gaKavijamaara) {
+                if (gaAsiakasmäärä < gaKävijämäärä) {
                     eventList.add(entry.moveQueue(false));
-                    gaAsiakasmaara++;
+                    gaAsiakasmäärä++;
                 }
                 Event event = eventList.remove();
                 if (event == null) {
