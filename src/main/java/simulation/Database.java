@@ -6,6 +6,9 @@ import java.sql.*;
  * Database class handles the connection to the database and provides methods for saving customers, retrieving service analysis, and deleting the database.
  */
 public class Database {
+    /**
+     * The Connection object used to connect to the database. This is a static variable that is shared across all instances of the Database class. It is initialized in the connect() method and used in other methods to execute SQL queries.
+     */
     private static Connection conn;
 
     /**
